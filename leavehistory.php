@@ -100,7 +100,7 @@ if (strlen($_SESSION['emplogin'])==0) {
     $cnt=1;
 
     if ($query->rowCount() > 0) {
-        foreach($results as $result ) {               ?>  
+        foreach ($results as $result) {               ?>  
                                         <tr>
                                             <td> <?php echo htmlentities($cnt);?></td>
                                             <td><?php echo htmlentities($result->LeaveType);?></td>
@@ -110,9 +110,8 @@ if (strlen($_SESSION['emplogin'])==0) {
                                             <td><?php echo htmlentities($result->PostingDate);?></td>
                                             <td><?php if($result->AdminRemark=="")
                                             {
-echo htmlentities('waiting for approval');
-                                            } else
-{
+                                                echo htmlentities('waiting for approval');
+                                            } else {
 
  echo htmlentities(($result->AdminRemark)." "."at"." ".$result->AdminRemarkDate);
 }
