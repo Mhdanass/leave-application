@@ -1,16 +1,20 @@
 <?php
+
 session_start();
+
 error_reporting(0);
+
 include('includes/config.php');
-if(strlen($_SESSION['emplogin'])==0)
-    {   
-header('location:index.php');
-}
-else{
+
+if (strlen($_SESSION['emplogin'])==0) {
+    header('location:index.php'); }  else {
 
  ?>
+
 <!DOCTYPE html>
+
 <html lang="en">
+
     <head>
         
         <!-- Title -->
@@ -65,7 +69,7 @@ else{
                         <div class="card">
                             <div class="card-content">
                                 <span class="card-title">Leave History</span>
-                                <?php if($msg){?><div class="succWrap"><strong>SUCCESS</strong> : <?php echo htmlentities($msg); ?> </div><?php }?>
+                                <?php if ($msg) {?><div class="succWrap"><strong>SUCCESS</strong> : <?php echo htmlentities($msg); ?> </div><?php }?>
                                 <table id="example" class="display responsive-table ">
                                     <thead>
                                         <tr>
@@ -82,17 +86,21 @@ else{
                                  
                                     <tbody>
 <?php 
-$eid=$_SESSION['eid'];
-$sql = "SELECT LeaveType,ToDate,FromDate,Description,PostingDate,AdminRemarkDate,AdminRemark,Status from tblleaves where empid=:eid";
-$query = $dbh -> prepare($sql);
-$query->bindParam(':eid',$eid,PDO::PARAM_STR);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $result)
-{               ?>  
+
+    $eid=$_SESSION['eid'];
+
+    $sql = "SELECT LeaveType,ToDate,FromDate,Description,PostingDate,AdminRemarkDate,AdminRemark,Status from tblleaves where empid=:eid";
+    $query = $dbh -> prepare($sql);
+
+    $query->bindParam(':eid', $eid, PDO::PARAM_STR);
+
+    $query->execute();
+
+    $results=$query->fetchAll(PDO::FETCH_OBJ);
+    $cnt=1;
+
+    if ($query->rowCount() > 0) {
+        foreach($results as $result ) {               ?>  
                                         <tr>
                                             <td> <?php echo htmlentities($cnt);?></td>
                                             <td><?php echo htmlentities($result->LeaveType);?></td>
