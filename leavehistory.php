@@ -108,29 +108,25 @@ if (strlen($_SESSION['emplogin'])==0) {
                                             <td><?php echo htmlentities($result->FromDate);?></td>
                                            <td><?php echo htmlentities($result->Description);?></td>
                                             <td><?php echo htmlentities($result->PostingDate);?></td>
-                                            <td><?php if($result->AdminRemark=="")
-                                            {
-                                                echo htmlentities('waiting for approval');
-                                            } else {
-
- echo htmlentities(($result->AdminRemark)." "."at"." ".$result->AdminRemarkDate);
-}
-
-                                            ?></td>
+                                            <td><?php if ($result-> AdminRemark=="") {
+                                                echo htmlentities('waiting for approval'); }
+                                                else {
+                                                    echo htmlentities(($result->AdminRemark)." "."at"." ".$result->AdminRemarkDate) ;
+                                                } ?>
+                                                    </td>
                                                                                  <td><?php $stats=$result->Status;
-if($stats==1){
-                                             ?>
+                                                if ($stats==1) {                             ?>
                                                  <span style="color: green">Approved</span>
-                                                 <?php } if($stats==2)  { ?>
+                                                    <?php } if ($stats==2) { ?>
                                                 <span style="color: red">Not Approved</span>
-                                                 <?php } if($stats==0)  { ?>
+                                                    <?php } if ($stats==0) { ?>
  <span style="color: blue">waiting for approval</span>
  <?php } ?>
 
                                              </td>
           
                                         </tr>
-                                         <?php $cnt++;} }?>
+                                            <?php $cnt++ ; } }?>
                                     </tbody>
                                 </table>
                             </div>

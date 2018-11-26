@@ -1,23 +1,27 @@
 
 <?php
 session_start();
-error_reporting(0);
-include('includes/config.php');
-// Code for change password 
-if(isset($_POST['change']))
-    {
-$newpassword=md5($_POST['newpassword']);
-$empid=$_SESSION['empid'];
 
-$con="update tblemployees set Password=:newpassword where id=:empid";
-$chngpwd1 = $dbh->prepare($con);
-$chngpwd1-> bindParam(':empid', $empid, PDO::PARAM_STR);
-$chngpwd1-> bindParam(':newpassword', $newpassword, PDO::PARAM_STR);
-$chngpwd1->execute();
-$msg="Your Password succesfully changed";
+error_reporting(0);
+
+include('includes/config.php');
+
+// Code for change password 
+
+if (isset($_POST['change'])) {
+        $newpassword=md5($_POST['newpassword']);
+        $empid=$_SESSION['empid'];
+
+        $con="update tblemployees set Password=:newpassword where id=:empid";
+        $chngpwd1 = $dbh->prepare($con);
+        $chngpwd1-> bindParam(':empid', $empid, PDO::PARAM_STR);
+        $chngpwd1-> bindParam(':newpassword', $newpassword, PDO::PARAM_STR);
+        $chngpwd1->execute();
+        $msg="Your Password succesfully changed";
 }
 
 ?><!DOCTYPE html>
+
 <html lang="en">
     <head>
         
@@ -34,8 +38,6 @@ $msg="Your Password succesfully changed";
         <link type="text/css" rel="stylesheet" href="assets/plugins/materialize/css/materialize.min.css"/>
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="assets/plugins/material-preloader/css/materialPreloader.min.css" rel="stylesheet">        
-
-        	
         <!-- Theme Styles -->
         <link href="assets/css/alpha.min.css" rel="stylesheet" type="text/css"/>
         <link href="assets/css/custom.css" rel="stylesheet" type="text/css"/>
@@ -151,43 +153,42 @@ $msg="Your Password succesfully changed";
 
                                   <div class="card-content ">
                                       <span class="card-title" style="font-size:20px;">Employee details</span>
-                                         <?php if($msg){?><div class="succWrap"><strong>Success </strong> : <?php echo htmlentities($msg); ?> </div><?php }?>
+                                            <?php if ($msg) {?><div class="succWrap"><strong>Success </strong> : <?php echo htmlentities($msg); ?> </div><?php }?>
                                        <div class="row">
                                            <form class="col s12" name="signin" method="post">
                                                <div class="input-field col s12">
-                                                   <input id="empid" type="text" name="empid" class="validate" autocomplete="off" required >
+ <input id="empid" type="text" name="empid" class="validate" autocomplete="off" required >
                                                    <label for="email">Employee Id</label>
                                                </div>
                                                <div class="input-field col s12">
-                                                   <input id="password" type="text" class="validate" name="emailid" autocomplete="off" required>
+ <input id="password" type="text" class="validate" name="emailid" autocomplete="off" required>
                                                    <label for="password">Email id</label>
                                                </div>
                                                <div class="col s12 right-align m-t-sm">
                                                 
-                                                   <input type="submit" name="submit" value="Sign in" class="waves-effect waves-light btn teal">
+ <input type="submit" name="submit" value="Sign in" class="waves-effect waves-light btn teal">
                                                </div>
                                            </form>
                                       </div>
                                   </div>
-<?php if(isset($_POST['submit']))
-{
-$empid=$_POST['empid'];
-$email=$_POST['emailid'];
-$sql ="SELECT id FROM tblemployees WHERE EmailId=:email and EmpId=:empid";
-$query= $dbh -> prepare($sql);
-$query-> bindParam(':email', $email, PDO::PARAM_STR);
-$query-> bindParam(':empid', $empid, PDO::PARAM_STR);
-$query-> execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-if($query->rowCount() > 0)
-{
-foreach ($results as $result) {
-    $_SESSION['empid']=$result->id;
-  } 
-    ?>
+<?php if (isset($_POST['submit'])) {
+
+        $empid=$_POST['empid'];
+        $email=$_POST['emailid'];
+        $sql ="SELECT id FROM tblemployees WHERE EmailId=:email and EmpId=:empid";
+        $query= $dbh -> prepare($sql);
+        $query-> bindParam(':email', $email, PDO::PARAM_STR);
+        $query-> bindParam(':empid', $empid, PDO::PARAM_STR);
+        $query-> execute();
+        $results=$query->fetchAll(PDO::FETCH_OBJ);
+
+    if ($query->rowCount() > 0) {
+
+        foreach ($results as $result) {
+        $_SESSION['empid']=$result->id; }?>
 
  <div class="row">
-          <span class="card-title" style="font-size:20px;">change your password </span>                                     
+ <span class="card-title" style="font-size:20px;">change your password </span>                                     
     <form class="col s12" name="udatepwd" method="post">
   <div class="input-field col s12">
  <input id="password" type="password" name="newpassword" class="validate" autocomplete="off" required>
@@ -206,10 +207,10 @@ foreach ($results as $result) {
 </div>
 </div>
 </form>
-<?php } else{ ?>
+    <?php} else { ?>
 <div class="errorWrap" style="margin-left: 2%; font-size:22px;">
  <strong>ERROR</strong> : <?php echo htmlentities("Invalid details");
-}?></div>
+    } ?></div>
 <?php } ?>
 
 

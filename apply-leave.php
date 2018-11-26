@@ -101,8 +101,10 @@ if (strlen($_SESSION['emplogin'])==0) {
                                                 <div class="row">
                                                     <div class="col m12">
                                                         <div class="row">
-     <?php if ($error){?><div class="errorWrap"><strong>ERROR </strong>:<?php echo htmlentities($error); ?> </div><?php }
-                else if ($msg) {?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
+     <?php if ($error) {?>
+     <div class="errorWrap"><strong>ERROR </strong>:<?php echo htmlentities($error); ?> </div><?php }
+                else if ($msg) {?>
+                <div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
 
 
  <div class="input-field col  s12">
@@ -114,12 +116,11 @@ if (strlen($_SESSION['emplogin'])==0) {
         $results =$query->fetchAll(PDO::FETCH_OBJ);
         $cnt=1;
 
-if ($query->rowCount() > 0) {
-
-    foreach ($results as $result) {  ?>   
+    if ($query->rowCount() > 0) {
+        foreach ($results as $result) {?>   
                                          
 <option value="<?php echo htmlentities($result->LeaveType);?>"><?php echo htmlentities($result->LeaveType);?></option>
-<?php } } ?>
+<?php    } } ?>
 </select>
 </div>
 

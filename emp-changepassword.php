@@ -1,37 +1,37 @@
 <?php
 session_start();
+
 error_reporting(0);
+
 include('includes/config.php');
-if(strlen($_SESSION['emplogin'])==0)
-    {   
-header('location:index.php');
-}
-else{
-// Code for change password 
-if(isset($_POST['change']))
-    {
-$password=md5($_POST['password']);
-$newpassword=md5($_POST['newpassword']);
-$username=$_SESSION['emplogin'];
-    $sql ="SELECT Password FROM tblemployees WHERE EmailId=:username and Password=:password";
-$query= $dbh -> prepare($sql);
-$query-> bindParam(':username', $username, PDO::PARAM_STR);
-$query-> bindParam(':password', $password, PDO::PARAM_STR);
-$query-> execute();
-$results = $query -> fetchAll(PDO::FETCH_OBJ);
-if($query -> rowCount() > 0)
-{
-$con="update tblemployees set Password=:newpassword where EmailId=:username";
-$chngpwd1 = $dbh->prepare($con);
-$chngpwd1-> bindParam(':username', $username, PDO::PARAM_STR);
-$chngpwd1-> bindParam(':newpassword', $newpassword, PDO::PARAM_STR);
-$chngpwd1->execute();
-$msg="Your Password succesfully changed";
-}
+
+if (strlen($_SESSION['emplogin'])==0) {
+        header('location:index.php'); }
 else {
-$error="Your current password is wrong";    
-}
-}
+    
+// Code for change password 
+
+    if (isset( $_POST ['change'] )) {
+
+        $password=md5($_POST['password']);
+        $newpassword=md5($_POST['newpassword']);
+        $username=$_SESSION['emplogin'];
+        $sql ="SELECT Password FROM tblemployees WHERE EmailId=:username and Password=:password";
+        $query= $dbh -> prepare($sql);
+        $query-> bindParam(':username', $username, PDO::PARAM_STR);
+        $query-> bindParam(':password', $password, PDO::PARAM_STR);
+        $query-> execute();
+        $results = $query -> fetchAll(PDO::FETCH_OBJ);
+                   if ($query -> rowCount() > 0) {
+                    $con="update tblemployees set Password=:newpassword where EmailId=:username";
+                    $chngpwd1 = $dbh->prepare($con);
+                    $chngpwd1-> bindParam(':username', $username, PDO::PARAM_STR);
+                    $chngpwd1-> bindParam(':newpassword', $newpassword, PDO::PARAM_STR);
+                    $chngpwd1->execute();
+                    $msg="Your Password succesfully changed"; }
+        else {
+            $error="Your current password is wrong"; }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -87,8 +87,10 @@ $error="Your current password is wrong";
                               
                                 <div class="row">
                                     <form class="col s12" name="chngpwd" method="post">
-                                          <?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
-                else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
+                                          <?php if ($error) {?> 
+                                          <div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
+                else if ($msg) {?>
+                <div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
                                         <div class="row">
                                             <div class="input-field col s12">
 <input id="password" type="password"  class="validate" autocomplete="off" name="password"  required>
